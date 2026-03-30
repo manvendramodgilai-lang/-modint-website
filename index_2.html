@@ -58,8 +58,10 @@
       display: flex; align-items: center; justify-content: space-between;
       height: 64px;
     }
-    .logo { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--accent); }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo img { height: 36px; width: auto; }
+    .logo-text { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; color: var(--text); }
+    .logo-text span { color: var(--accent); }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 400;
@@ -342,7 +344,10 @@
   <!-- NAV -->
   <nav>
     <div class="nav-inner">
-      <a href="#" class="logo">modint<span>.</span></a>
+      <a href="#" class="logo">
+        <img src="nex_logo.png" alt="Modint Intelligence Logo">
+        <span class="logo-text">modint<span>.</span></span>
+      </a>
       <ul class="nav-links">
         <li><a href="#products">Products</a></li>
         <li><a href="#api">API</a></li>
@@ -518,15 +523,19 @@
         <div class="contact-channels">
           <div class="channel">
             <div class="channel-icon">@</div>
-            <span>manvendra@modint.in</span>
+            <a href="mailto:manvendramodgil.ai@gmail.com" style="color:var(--text-muted);text-decoration:none;">manvendramodgil.ai@gmail.com</a>
           </div>
           <div class="channel">
             <div class="channel-icon">&lt;/&gt;</div>
-            <span>github.com/ManvendraModgilAI-lang</span>
+            <a href="https://github.com/manvendramodgilai-lang" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none;">github.com/manvendramodgilai-lang</a>
           </div>
           <div class="channel">
             <div class="channel-icon">in</div>
-            <span>LinkedIn — Manvendra Modgil</span>
+            <a href="https://www.linkedin.com/in/manvendra-modgill-281978385" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none;">LinkedIn — Manvendra Modgil</a>
+          </div>
+          <div class="channel">
+            <div class="channel-icon">&#9671;</div>
+            <a href="https://nexsovereign.com" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none;">nexsovereign.com</a>
           </div>
         </div>
       </div>
@@ -570,6 +579,7 @@
         <li><a href="#api">API</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="https://nexsovereign.com" target="_blank" rel="noopener">nexsovereign.com</a></li>
       </ul>
     </div>
   </footer>

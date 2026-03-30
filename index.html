@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modint Intelligence — Emotion is Infrastructure</title>
+  <meta name="description" content="Modint Intelligence builds emotion-aware AI products powered by the HEART engine. Four products. One thesis: emotion is infrastructure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a26;
+      --text: #e8e6e1;
+      --text-muted: #9a9890;
+      --text-dim: #5e5d58;
+      --accent: #c8a2f8;
+      --accent-dim: #9162d4;
+      --accent-glow: rgba(200, 162, 248, 0.12);
+      --coral: #e8715a;
+      --coral-dim: rgba(232, 113, 90, 0.12);
+      --teal: #4ecdb4;
+      --teal-dim: rgba(78, 205, 180, 0.12);
+      --amber: #e8b44c;
+      --amber-dim: rgba(232, 180, 76, 0.12);
+      --blue: #5b9cf5;
+      --blue-dim: rgba(91, 156, 245, 0.12);
+      --border: rgba(255,255,255,0.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'DM Sans', system-ui, sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.82);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { font-weight: 600; font-size: 17px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); margin: 5px 0; transition: 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,15,0.96); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text); text-decoration: none; font-size: 20px; font-weight: 500; }
+
+    /* --- SECTIONS --- */
+    section { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding-top: 64px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,162,248,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-family: var(--mono); font-size: 13px; color: var(--accent);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.1; max-width: 720px;
+      opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--coral));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 18px; color: var(--text-muted); max-width: 540px;
+      margin-top: 24px; line-height: 1.7;
+      opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; margin-top: 40px;
+      opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 999px; font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+      font-family: var(--font);
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--bg);
+    }
+    .btn-primary:hover { background: #d4b4ff; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(200,162,248,0.2); }
+    .btn-ghost {
+      background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      opacity: 0; animation: fadeUp 0.6s 1s forwards;
+    }
+    .scroll-hint span {
+      display: block; width: 20px; height: 32px; border-radius: 10px;
+      border: 1.5px solid var(--text-dim); position: relative;
+    }
+    .scroll-hint span::after {
+      content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      width: 3px; height: 8px; border-radius: 2px; background: var(--text-dim);
+      animation: scrollDot 1.8s ease-in-out infinite;
+    }
+
+    /* --- SECTION HEADERS --- */
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-tag {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 600; letter-spacing: -0.02em;
+    }
+    .section-header p { color: var(--text-muted); font-size: 16px; margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    /* --- PRODUCTS --- */
+    #products { padding-top: 120px; padding-bottom: 120px; }
+    .products-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    }
+    .product-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; position: relative;
+      transition: all 0.3s; overflow: hidden;
+    }
+    .product-card:hover {
+      background: var(--bg-card-hover); border-color: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+    .product-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .product-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent), transparent); }
+    .product-card:nth-child(2)::before { background: linear-gradient(90deg, var(--coral), transparent); }
+    .product-card:nth-child(3)::before { background: linear-gradient(90deg, var(--amber), transparent); }
+    .product-card:nth-child(4)::before { background: linear-gradient(90deg, var(--teal), transparent); }
+    .product-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 20px;
+    }
+    .product-card:nth-child(1) .product-icon { background: var(--accent-glow); color: var(--accent); }
+    .product-card:nth-child(2) .product-icon { background: var(--coral-dim); color: var(--coral); }
+    .product-card:nth-child(3) .product-icon { background: var(--amber-dim); color: var(--amber); }
+    .product-card:nth-child(4) .product-icon { background: var(--teal-dim); color: var(--teal); }
+    .product-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .product-card .product-sub { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+    .product-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .product-stats {
+      display: flex; gap: 24px; margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .product-stat { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+    .product-stat strong { color: var(--text-muted); font-weight: 500; }
+
+    /* --- HEART API --- */
+    #api { padding-top: 120px; padding-bottom: 120px; }
+    .api-showcase {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 420px;
+    }
+    .api-info { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+    .api-info h3 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .api-info p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+    .api-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .api-features li {
+      font-size: 14px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .api-features li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .api-code {
+      background: #080810; padding: 40px;
+      font-family: var(--mono); font-size: 13px; line-height: 1.8;
+      color: var(--text-muted); overflow-x: auto;
+      display: flex; align-items: center;
+      border-left: 1px solid var(--border);
+    }
+    .api-code pre { white-space: pre; }
+    .api-code .kw { color: var(--accent); }
+    .api-code .str { color: var(--teal); }
+    .api-code .cm { color: var(--text-dim); }
+    .api-code .num { color: var(--amber); }
+
+    /* --- ABOUT --- */
+    #about { padding-top: 120px; padding-bottom: 120px; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .about-text h3 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .about-text p { color: var(--text-muted); font-size: 15px; margin-bottom: 16px; }
+    .about-stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .about-stat {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; text-align: center;
+    }
+    .about-stat .num { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+    .about-stat .num.purple { color: var(--accent); }
+    .about-stat .num.coral { color: var(--coral); }
+    .about-stat .num.teal { color: var(--teal); }
+    .about-stat .num.amber { color: var(--amber); }
+    .about-stat .label { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+    /* --- CONTACT --- */
+    #contact { padding-top: 120px; padding-bottom: 120px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+    .contact-info h3 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .contact-info p { color: var(--text-muted); font-size: 15px; margin-bottom: 32px; }
+    .contact-channels { display: flex; flex-direction: column; gap: 16px; }
+    .channel {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--text-muted);
+    }
+    .channel-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--bg-card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--accent);
+    }
+    .contact-form {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 500;
+      color: var(--text-muted); margin-bottom: 8px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 12px 16px; border-radius: var(--radius-sm);
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text); font-family: var(--font); font-size: 14px;
+      transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent-dim);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-success {
+      display: none; text-align: center; padding: 40px;
+      color: var(--teal); font-size: 16px;
+    }
+    .form-success.show { display: block; }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px; text-align: center;
+      max-width: 1120px; margin: 0 auto;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-text { font-size: 13px; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-muted); }
+
+    /* --- ANIMATIONS --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollDot {
+      0%, 100% { opacity: 0.3; transform: translate(-50%, 0); }
+      50% { opacity: 1; transform: translate(-50%, 8px); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .products-grid { grid-template-columns: 1fr; }
+      .api-showcase { grid-template-columns: 1fr; }
+      .api-code { border-left: none; border-top: 1px solid var(--border); }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 16px; }
+      .hero { min-height: 90vh; }
+    }
+    @media (max-width: 480px) {
+      .about-stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">modint<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products" onclick="toggleMenu()">Products</a>
+    <a href="#api" onclick="toggleMenu()">API</a>
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-tag">Emotion is infrastructure</div>
+    <h1>AI that understands <em>how you feel</em></h1>
+    <p>Modint Intelligence builds emotion-aware AI products powered by HEART — a continuous multi-dimensional affect engine. Four products. One thesis.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-primary">Explore products</a>
+      <a href="#api" class="btn btn-ghost">HEART API &rarr;</a>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-header reveal">
+      <div class="section-tag">Products</div>
+      <h2>Four products, one engine</h2>
+      <p>Every product is a proof-of-concept for the HEART engine — demonstrating emotion AI across different domains.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-icon">&#9671;</div>
+        <h3>Nex Sovereign</h3>
+        <div class="product-sub">Cognitive operating system</div>
+        <p>A personal AI that evolves with your emotional patterns. 18 continuous emotions, PDAR reasoning, and trait evolution — your cognitive companion that actually understands context.</p>
+        <div class="product-stats">
+          <div class="product-stat"><strong>232</strong> tests</div>
+          <div class="product-stat"><strong>101</strong> endpoints</div>
+          <div class="product-stat"><strong>18</strong> emotions</div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">&#9763;</div>
+        <h3>HEART Clinical</h3>
+        <div class="product-sub">Mental health platform</div>
+        <p>Clinical-grade emotion tracking for therapists and patients. Maps emotional trajectories across sessions with 11 default clinical rules and automated PDF reports.</p>
+        <div class="product-stats">
+          <div class="product-stat"><strong>72</strong> tests</div>
+          <div class="product-stat"><strong>11</strong> clinical rules</div>
+          <div class="product-stat"><strong>Pilot</strong> ready</div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">&#9651;</div>
+        <h3>HEART Intelligence</h3>
+        <div class="product-sub">Emotion-aware trading</div>
+        <p>Backtests investment strategies with emotional bias detection. Head-to-head benchmarks against technical-only approaches prove the edge emotion data provides.</p>
+        <div class="product-stats">
+          <div class="product-stat"><strong>87</strong> tests</div>
+          <div class="product-stat"><strong>Guest</strong> demo</div>
+          <div class="product-stat"><strong>vs</strong> technical</div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-icon">&#9670;</div>
+        <h3>EduPulse</h3>
+        <div class="product-sub">Classroom emotion AI</div>
+        <p>Real-time classroom engagement monitoring using MediaPipe and HSEmotion. Tracks 30+ students simultaneously at 5 FPS with zero video storage for complete privacy.</p>
+        <div class="product-stats">
+          <div class="product-stat"><strong>84</strong> tests</div>
+          <div class="product-stat"><strong>30+</strong> students</div>
+          <div class="product-stat"><strong>5</strong> FPS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEART API -->
+  <section id="api">
+    <div class="section-header reveal">
+      <div class="section-tag">Platform</div>
+      <h2>HEART API</h2>
+      <p>The Stripe for emotion AI. Integrate continuous emotion understanding into any product with a few lines of code.</p>
+    </div>
+    <div class="api-showcase reveal">
+      <div class="api-info">
+        <h3>Build with emotion</h3>
+        <p>HEART processes 18 emotions as continuous dimensions — not discrete labels. Conflict resolution, personality-coupled feedback, and domain-adaptive processing out of the box.</p>
+        <ul class="api-features">
+          <li>18 continuous emotion dimensions</li>
+          <li>Personality-coupled feedback loops</li>
+          <li>Domain-adaptive processing</li>
+          <li>Conflict resolution engine</li>
+          <li>Python &amp; TypeScript SDKs</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Get API access</a>
+      </div>
+      <div class="api-code">
+        <pre><span class="cm">// Emotion-aware response in 3 lines</span>
+<span class="kw">import</span> { Heart } <span class="kw">from</span> <span class="str">'@modint/heart'</span>;
+
+<span class="kw">const</span> engine = <span class="kw">new</span> Heart({
+  dimensions: <span class="num">18</span>,
+  mode: <span class="str">'continuous'</span>
+});
+
+<span class="kw">const</span> state = <span class="kw">await</span> engine.process({
+  input: <span class="str">"I'm overwhelmed but excited"</span>,
+  context: userHistory
+});
+
+<span class="cm">// Returns: { joy: 0.72, anxiety: 0.61,</span>
+<span class="cm">//   anticipation: 0.84, conflict: true,</span>
+<span class="cm">//   resolution: "approach-approach" }</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <div class="section-tag">About</div>
+      <h2>Modint Intelligence</h2>
+      <p>An emotion AI company built on the thesis that affect is the missing infrastructure layer in artificial intelligence.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h3>The thesis</h3>
+        <p>Current AI treats emotion as annotation — a label slapped on after the fact. HEART treats emotion as architecture. It's a continuous, multi-dimensional affect engine baked into the reasoning process itself.</p>
+        <p>Modint Intelligence is a one-person-company building four products that prove this thesis across domains: personal AI, clinical mental health, financial intelligence, and education. Each product is a proof-of-concept for the HEART engine, which is being positioned as a standalone API platform.</p>
+        <p>Founded by Manvendra Modgil. Currently pursuing dual degrees in Data Science &amp; AI (BITS Pilani) and Digital Business &amp; Entrepreneurship (IIM Bangalore).</p>
+      </div>
+      <div class="about-stats-grid reveal">
+        <div class="about-stat">
+          <div class="num purple">475</div>
+          <div class="label">Passing tests</div>
+        </div>
+        <div class="about-stat">
+          <div class="num coral">4</div>
+          <div class="label">Products</div>
+        </div>
+        <div class="about-stat">
+          <div class="num teal">18</div>
+          <div class="label">Emotion dimensions</div>
+        </div>
+        <div class="about-stat">
+          <div class="num amber">1</div>
+          <div class="label">Patent filed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header reveal">
+      <div class="section-tag">Contact</div>
+      <h2>Get in touch</h2>
+      <p>Interested in the HEART API, partnership opportunities, or just want to talk about emotion AI?</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Let's build together</h3>
+        <p>Whether you're a developer looking to integrate emotion understanding, a researcher exploring affect computing, or a company interested in what HEART can do — reach out.</p>
+        <div class="contact-channels">
+          <div class="channel">
+            <div class="channel-icon">@</div>
+            <span>manvendra@modint.in</span>
+          </div>
+          <div class="channel">
+            <div class="channel-icon">&lt;/&gt;</div>
+            <span>github.com/ManvendraModgilAI-lang</span>
+          </div>
+          <div class="channel">
+            <div class="channel-icon">in</div>
+            <span>LinkedIn — Manvendra Modgil</span>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="interest">I'm interested in</label>
+          <select id="interest" name="interest">
+            <option value="api">HEART API access</option>
+            <option value="partnership">Partnership</option>
+            <option value="research">Research collaboration</option>
+            <option value="investment">Investment</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what you're building..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send message</button>
+        <div class="form-success" id="formSuccess">Message sent! We'll get back to you soon.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-text">&copy; 2026 Modint Intelligence. All rights reserved.</div>
+      <ul class="footer-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Contact form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('formSuccess');
+      const fields = form.querySelectorAll('input, textarea, select, button');
+      fields.forEach(f => f.style.display = 'none');
+      form.querySelector('.form-row').style.display = 'none';
+      form.querySelectorAll('.form-group').forEach(g => g.style.display = 'none');
+      success.classList.add('show');
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
